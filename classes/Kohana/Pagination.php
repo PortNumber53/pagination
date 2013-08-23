@@ -89,7 +89,7 @@ class Kohana_Pagination {
 	public function config_group($group = 'default')
 	{
 		// Load the pagination config file
-		$config_file = Kohana::$config->load('pagination');
+		$config_file = Kohana::config('pagination');
 
 		// Initialize the $config array
 		$config['group'] = (string) $group;
@@ -197,10 +197,10 @@ class Kohana_Pagination {
 		switch ($this->config['current_page']['source'])
 		{
 			case 'query_string':
-        return URL::site(Request::current()->uri()).URL::query(array($this->config['current_page']['key'] => $page));
+				return URL::site(Request::current()->uri()).URL::query(array($this->config['current_page']['key'] => $page));
 
 			case 'route':
-				return URL::site(Request::current()->route()->uri(array($this->config['current_page']['key'] => $page))).URL::query();
+				return URL::site(Request::current()->uri(array($this->config['current_page']['key'] => $page))).URL::query();
 
 			case 'mixed':
 			    return URL::site(Request::detect_uri()).URL::query(array($this->config['current_page']['key'] => $page));
